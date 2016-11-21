@@ -37,10 +37,10 @@ let Viper = function(){
 	this.health = this.generateHealth(this.maxHealth, this.minHealth);
 };
 Viper.prototype = new Drone();
-// Viper.setWeapon(new weapon.Grenade());
 
 let testBot = new Viper();
 testBot.name = 'abc';
+testBot.setWeapon(new weapon.Grenade());
 console.log('testBot', testBot);
 
 // Bipedal models
