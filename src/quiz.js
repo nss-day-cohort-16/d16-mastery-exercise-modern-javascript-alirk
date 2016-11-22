@@ -2,8 +2,8 @@
 
 let weapon = require('./weapons');
 
-let Robot = function(){
-	this.name = null;
+let Robot = function(name){
+	this.name = name || 'Mystery Bot';
 	this.model = null;
 	this.type = null;
 	this.weapon = null;
@@ -21,7 +21,9 @@ Robot.prototype.setWeapon = function(newWeapon){
 	this.weapon = newWeapon;
 };
 
-
+Robot.prototype.getDamage = function(weapon){
+	this.damage = this.weapon.damage;
+};
 
 // Drone models
 let Drone = function(){
@@ -32,16 +34,15 @@ Drone.prototype = new Robot();
 
 let Viper = function(){
 	this.model = 'Viper';
-	this.maxHealth = 80;
-	this.minHealth = 50;
-	this.health = this.generateHealth(this.maxHealth, this.minHealth);
+	this.health = this.generateHealth(80, 50);
+	// this.damage = this.getDamage();
 };
 Viper.prototype = new Drone();
 
-let testBot = new Viper();
-testBot.name = 'abc';
-testBot.setWeapon(new weapon.Grenade());
-console.log('testBot', testBot);
+let Riddler = function(){
+	this.model = 'Riddler';
+	this.health = this.generateHealth(100, 60);
+};
 
 // Bipedal models
 let Bipedal = function(){
@@ -52,13 +53,34 @@ Bipedal.prototype = new Robot();
 
 let Warrior = function(){
 	this.model = 'Warrior';
-	this.maxHealth = 95;
-	this.minHealth = 70;
-	this.health = this.generateHealth(this.maxHealth, this.minHealth);
+	this.health = this.generateHealth(95, 70);
 };
 Warrior.prototype = new Bipedal();
-// Warrior.setWeapon(new weapon.Rocket());
-console.log('Warrior', Warrior);
 
+let Ninja = function(){
+	this.model = 'Ninja';
+	this.health = this.generateHealth(80, 65);
+};
+Ninja.prototype = new Bipedal();
 
 // ATV models
+let ATV = function(){
+	this.type = 'ATV';
+};
+ATV.prototype = new Robot();
+
+let Kamikaze = function(){
+	this.model = 'Kamikaze';
+	this.health = this.generateHealth(75, 45);
+};
+Kamikaze.prototype = new ATV();
+
+let Transformer = function(){
+	this.model = 'Transformer';
+	this.health = this.generateHealth(80, 70);
+};
+Transformer.prototype = new ATV();
+
+//////////////////////////////////
+
+module.exports = { Viper, Riddler, Warrior, Ninja, Kamikaze, Transformer };
